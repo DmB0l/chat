@@ -22,6 +22,9 @@ add_executable(client
         mainWindow/MainWindow.cpp
         mainWindow/MainWindow.h
         mainWindow/MainWindow.ui
+        authorization/AuthorizationWindow.cpp
+        authorization/AuthorizationWindow.h
+        authorization/AuthorizationWindow.ui
 )
 
 

@@ -60,6 +60,12 @@
 	"HEADERS" : 
 	[
 		[
+			"/home/alex/ProjectsDmB/chat/client/authorization/AuthorizationWindow.h",
+			"MU",
+			"PDHAJHOI3X/moc_AuthorizationWindow.cpp",
+			null
+		],
+		[
 			"/home/alex/ProjectsDmB/chat/client/mainWindow/MainWindow.h",
 			"MU",
 			"OVELE2FJD2/moc_MainWindow.cpp",
@@ -119,6 +125,11 @@
 	"SETTINGS_FILE" : "/home/alex/ProjectsDmB/chat/cmake-build-debug/client/CMakeFiles/client_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
+		[
+			"/home/alex/ProjectsDmB/chat/client/authorization/AuthorizationWindow.cpp",
+			"MU",
+			null
+		],
 		[ "/home/alex/ProjectsDmB/chat/client/main/Main.cpp", "MU", null ],
 		[
 			"/home/alex/ProjectsDmB/chat/client/mainWindow/MainWindow.cpp",

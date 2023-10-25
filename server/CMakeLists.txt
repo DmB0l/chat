@@ -14,6 +14,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt5 COMPONENTS
         Widgets
         Network
+        Sql
         REQUIRED)
 
 add_executable(server
@@ -28,4 +29,5 @@ add_executable(server
 target_link_libraries(server PRIVATE
         Qt5::Widgets
         Qt5::Network
+        Qt5::Sql
 )

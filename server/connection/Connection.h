@@ -8,21 +8,25 @@
 #include <QObject>
 #include <QTcpSocket>
 #include <QThread>
+#include <QtSql>
+#include <QSqlDatabase>
 
 
 class Connection : public QObject {
+    Q_OBJECT
 private:
     QTcpSocket *m_socket;
+    QSqlDatabase db;
 
 public:
-    Connection(QTcpSocket *socket);
-
-
-public slots:
-    void onStarted();
+    Connection(QTcpSocket *socket, int numberConnection);
 
 private slots:
     void onReadyRead();
+    void onDisconnect();
+
+signals:
+    void disconnect();
 
 };
 

@@ -9,6 +9,8 @@
 #include <QTcpSocket>
 #include <QTcpServer>
 #include <QThread>
+#include <QHostAddress>
+
 
 #include "connection/Connection.h"
 
@@ -21,6 +23,7 @@ public:
 
 private:
     int m_counterConnection = 0;
+
 
 };
 

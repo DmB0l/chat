@@ -23,7 +23,9 @@ Server::Server() {
 //        thread->setObjectName("nameeee");
 //        thread->start();
 
-        Connection *connection = new Connection(server->nextPendingConnection());
+        Connection *connection = new Connection(server->nextPendingConnection(), m_counterConnection);
+
+        connect(connection, &Connection::disconnect, connection, &Connection::deleteLater);
 
 //        QThread *thread = new QThread();
 //        thread->setObjectName("connection" + QString::number(m_counterConnection));
@@ -32,7 +34,7 @@ Server::Server() {
 //        connect(thread, &QThread::started, connection, &Connection::onStarted);
 //        thread->start();
 
-//        m_counterConnection++;
+        m_counterConnection++;
     });
 }
 
