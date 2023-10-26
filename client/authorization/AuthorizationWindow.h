@@ -5,12 +5,15 @@
 #include <QTcpSocket>
 #include <QHostAddress>
 #include <QTimer>
+#include <QDialog>
+
+#include "mainWindow/MainWindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class AuthorizationWindow; }
 QT_END_NAMESPACE
 
-class AuthorizationWindow : public QMainWindow
+class AuthorizationWindow : public QWidget
 {
     Q_OBJECT
 

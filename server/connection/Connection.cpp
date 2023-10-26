@@ -37,7 +37,7 @@ Connection::Connection(QTcpSocket *socket, int numberConnection) : m_socket(sock
 }
 
 void Connection::onReadyRead() {
-    auto *query = new QSqlQuery(db);
+
 
     qDebug() << QThread::currentThread()->objectName();
     QVector<QByteArray> message;
@@ -53,35 +53,49 @@ void Connection::onReadyRead() {
     }
 
     if (message.at(0) == "command log in") {
-        if (!query->exec(R"(SELECT * from "UserInformation" WHERE "email" = ')" + message.at(1) + R"(' AND "password" = ')" + message.at(2) + R"(';)")) {
-            qDebug() << query->lastError();
-        }
-        if(query->next()) {
-            qDebug() << query->value(0) << query->value(1) << query->value(2);
-            m_socket->write("Успешный вход\n");
-        }
-        else {
-            m_socket->write("Неверный логин или пароль\n");
-        }
+        loginQuery(message);
     }
     else if (message.at(0) == "command reg") {
-        if (!query->exec(R"(SELECT * from "UserInformation" WHERE "email" = ')" + message.at(1) + R"(';)")) {
+        regQuery(message);
+    }
+
+
+}
+
+void Connection::loginQuery(QVector<QByteArray> message) {
+    auto *query = new QSqlQuery(db);
+
+    if (!query->exec(R"(SELECT * from "UserInformation" WHERE "email" = ')" + message.at(1) + R"(' AND "password" = ')" + message.at(2) + R"(';)")) {
+        qDebug() << query->lastError();
+    }
+    if (query->next()) {
+        qDebug() << query->value(0) << query->value(1) << query->value(2);
+        m_socket->write("login successful\n");
+    } else {
+        m_socket->write("login fail\n");
+    }
+
+    delete query;
+}
+
+void Connection::regQuery(QVector<QByteArray> message) {
+    auto *query = new QSqlQuery(db);
+
+    if (!query->exec(R"(SELECT * from "UserInformation" WHERE "email" = ')" + message.at(1) + R"(';)")) {
+        qDebug() << query->lastError();
+    }
+    if (query->next()) {
+        qDebug() << query->value(0) << query->value(1) << query->value(2);
+        m_socket->write("reg email busy\n");
+    } else {
+        if (!query->exec(R"(INSERT INTO "UserInformation" ("email", "password") VALUES (')" + message.at(1) + R"(',')" + message.at(2) + R"(');)")) {
             qDebug() << query->lastError();
-        }
-        if(query->next()) {
-            qDebug() << query->value(0) << query->value(1) << query->value(2);
-            m_socket->write("Аккаунт с такой почтой уже существует\n");
-        }
-        else {
-            if (!query->exec(R"(INSERT INTO "UserInformation" ("email", "password") VALUES (')" + message.at(1) + R"(',')" + message.at(2) + R"(');)")) {
-                qDebug() << query->lastError();
-                m_socket->write("Ошибка при создании аккаунта\n");
-            }
-            else {
-                m_socket->write("Аккаунт создан\n");
-            }
+            m_socket->write("reg error\n");
+        } else {
+            m_socket->write("reg successful\n");
         }
     }
+
     delete query;
 }
 

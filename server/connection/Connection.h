@@ -18,6 +18,9 @@ private:
     QTcpSocket *m_socket;
     QSqlDatabase db;
 
+    void loginQuery(QVector<QByteArray> message);
+    void regQuery(QVector<QByteArray> message);
+
 public:
     Connection(QTcpSocket *socket, int numberConnection);
 
@@ -27,7 +30,6 @@ private slots:
 
 signals:
     void disconnect();
-
 };
 
 
